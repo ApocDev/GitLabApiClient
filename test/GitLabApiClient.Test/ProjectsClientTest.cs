@@ -89,13 +89,15 @@ namespace GitLabApiClient.Test
             createRequest.EnableIssues = true;
             createRequest.EnableJobs = true;
             createRequest.EnableMergeRequests = true;
-            createRequest.PublicJobs = true;
+            createRequest.PublicBuilds = true;
             createRequest.EnableWiki = true;
             createRequest.EnableLfs = true;
             createRequest.EnablePrintingMergeRequestLink = true;
             createRequest.OnlyAllowMergeIfAllDiscussionsAreResolved = true;
             createRequest.OnlyAllowMergeIfPipelineSucceeds = true;
             createRequest.Visibility = ProjectVisibilityLevel.Internal;
+
+
 
             var project = await _sut.CreateAsync(createRequest);
             project.Should().Match<Project>(
@@ -122,7 +124,7 @@ namespace GitLabApiClient.Test
             createRequest.EnableIssues = true;
             createRequest.EnableJobs = true;
             createRequest.EnableMergeRequests = true;
-            createRequest.PublicJobs = true;
+            createRequest.PublicBuilds = true;
             createRequest.EnableWiki = true;
             createRequest.EnableLfs = true;
             createRequest.EnablePrintingMergeRequestLink = true;

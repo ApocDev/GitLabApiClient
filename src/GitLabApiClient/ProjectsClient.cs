@@ -14,9 +14,9 @@ using GitLabApiClient.Models.Users.Responses;
 namespace GitLabApiClient
 {
     /// <summary>
-    /// Used to query GitLab API to retrieve, modify, create projects.
-    /// <exception cref="GitLabException">Thrown if request to GitLab API fails</exception>
-    /// <exception cref="HttpRequestException">Thrown if request to GitLab API fails</exception>
+    ///     Used to query GitLab API to retrieve, modify, create projects.
+    ///     <exception cref="GitLabException">Thrown if request to GitLab API fails</exception>
+    ///     <exception cref="HttpRequestException">Thrown if request to GitLab API fails</exception>
     /// </summary>
     public sealed class ProjectsClient
     {
@@ -24,7 +24,8 @@ namespace GitLabApiClient
         private readonly ProjectsQueryBuilder _queryBuilder;
         private readonly MilestonesQueryBuilder _queryMilestonesBuilder;
 
-        internal ProjectsClient(GitLabHttpFacade httpFacade, ProjectsQueryBuilder queryBuilder, MilestonesQueryBuilder queryMilestonesBuilder)
+        internal ProjectsClient(GitLabHttpFacade httpFacade, ProjectsQueryBuilder queryBuilder,
+            MilestonesQueryBuilder queryMilestonesBuilder)
         {
             _httpFacade = httpFacade;
             _queryBuilder = queryBuilder;
@@ -32,15 +33,15 @@ namespace GitLabApiClient
         }
 
         /// <summary>
-        /// Retrieves project by its id.
+        ///     Retrieves project by its id.
         /// </summary>
         /// <param name="projectId">Id of the project.</param>
         public async Task<Project> GetAsync(int projectId) =>
             await _httpFacade.Get<Project>($"projects/{projectId}");
 
         /// <summary>
-        /// Get a list of visible projects for authenticated user. 
-        /// When accessed without authentication, only public projects are returned.
+        ///     Get a list of visible projects for authenticated user.
+        ///     When accessed without authentication, only public projects are returned.
         /// </summary>
         /// <param name="options">Query options.</param>
         public async Task<IList<Project>> GetAsync(Action<ProjectQueryOptions> options = null)
@@ -53,25 +54,26 @@ namespace GitLabApiClient
         }
 
         /// <summary>
-        /// Get the users list of a project.
+        ///     Get the users list of a project.
         /// </summary>
         /// <param name="projectId">Id of the project.</param>
         public async Task<IList<User>> GetUsersAsync(int projectId) =>
             await _httpFacade.GetPagedList<User>($"projects/{projectId}/users");
 
         /// <summary>
-        /// Get the labels list of a project.
+        ///     Get the labels list of a project.
         /// </summary>
         /// <param name="projectId">Id of the project.</param>
         public async Task<IList<Label>> GetLabelsAsync(int projectId) =>
             await _httpFacade.GetPagedList<Label>($"projects/{projectId}/labels");
 
         /// <summary>
-        /// Get the milestone list of a project.
+        ///     Get the milestone list of a project.
         /// </summary>
         /// <param name="projectId">Id of the project.</param>
         /// <param name="options">Query options.</param>
-        public async Task<IList<Milestone>> GetMilestonesAsync(int projectId, Action<MilestonesQueryOptions> options = null)
+        public async Task<IList<Milestone>> GetMilestonesAsync(int projectId,
+            Action<MilestonesQueryOptions> options = null)
         {
             var queryOptions = new MilestonesQueryOptions();
             options?.Invoke(queryOptions);
@@ -81,15 +83,15 @@ namespace GitLabApiClient
         }
 
         /// <summary>
-        /// Retrieves project milestone by its id
+        ///     Retrieves project milestone by its id
         /// </summary>
         /// <param name="projectId">Id of the project.</param>
         /// <param name="milestoneId">Id of the milestone.</param>
-        public async Task<Milestone> GetMilestoneAsync(int projectId, int milestoneId) => 
+        public async Task<Milestone> GetMilestoneAsync(int projectId, int milestoneId) =>
             await _httpFacade.Get<Milestone>($"projects/{projectId}/milestones/{milestoneId}");
 
         /// <summary>
-        /// Creates new project.
+        ///     Creates new project.
         /// </summary>
         /// <param name="request">Create project request.</param>
         /// <returns>Newly created project.</returns>
@@ -100,7 +102,7 @@ namespace GitLabApiClient
         }
 
         /// <summary>
-        /// Creates new project label.
+        ///     Creates new project label.
         /// </summary>
         /// <param name="request">Create label request.</param>
         /// <returns>Newly created label.</returns>
@@ -111,7 +113,7 @@ namespace GitLabApiClient
         }
 
         /// <summary>
-        /// Creates new project milestone.
+        ///     Creates new project milestone.
         /// </summary>
         /// <param name="request">Create milestone request.</param>
         /// <returns>Newly created milestone.</returns>
@@ -122,7 +124,7 @@ namespace GitLabApiClient
         }
 
         /// <summary>
-        /// Updates existing project.
+        ///     Updates existing project.
         /// </summary>
         /// <param name="request">Update project request.</param>
         /// <returns>Newly modified project.</returns>
@@ -133,7 +135,7 @@ namespace GitLabApiClient
         }
 
         /// <summary>
-        /// Updates an existing label with new name or new color. At least one parameter is required, to update the label.
+        ///     Updates an existing label with new name or new color. At least one parameter is required, to update the label.
         /// </summary>
         /// <param name="request">Update label request.</param>
         /// <returns>Newly modified label.</returns>
@@ -144,25 +146,26 @@ namespace GitLabApiClient
         }
 
         /// <summary>
-        /// Updates an existing project milestone.
+        ///     Updates an existing project milestone.
         /// </summary>
         /// <param name="request">Update milestone request.</param>
         /// <returns>Newly modified milestone.</returns>
         public async Task<Milestone> UpdateMilestoneAsync(UpdateProjectMilestoneRequest request)
         {
             Guard.NotNull(request, nameof(request));
-            return await _httpFacade.Put<Milestone>($"projects/{request.ProjectId}/milestones/{request.MilestoneId}", request);
+            return await _httpFacade.Put<Milestone>($"projects/{request.ProjectId}/milestones/{request.MilestoneId}",
+                request);
         }
 
         /// <summary>
-        /// Deletes project.
+        ///     Deletes project.
         /// </summary>
         /// <param name="id">Id of the project.</param>
-        public async Task DeleteAsync(int id) => 
+        public async Task DeleteAsync(int id) =>
             await _httpFacade.Delete($"projects/{id}");
 
         /// <summary>
-        /// Deletes project labels.
+        ///     Deletes project labels.
         /// </summary>
         /// <param name="id">Id of the project.</param>
         /// <param name="name">Name of the label.</param>
@@ -170,7 +173,7 @@ namespace GitLabApiClient
             await _httpFacade.Delete($"projects/{id}/labels?name={name}");
 
         /// <summary>
-        /// Deletes project milestone. Only for user with developer access to the project.
+        ///     Deletes project milestone. Only for user with developer access to the project.
         /// </summary>
         /// <param name="id">Id of the project.</param>
         /// <param name="milestoneId">The ID of the project�s milestone.</param>
@@ -178,17 +181,47 @@ namespace GitLabApiClient
             await _httpFacade.Delete($"projects/{id}/milestones/{milestoneId}");
 
         /// <summary>
-        /// Archive project.
+        ///     Archive project.
         /// </summary>
         /// <param name="id">Id of the project.</param>
-        public async Task ArchiveAsync(int id) => 
+        public async Task ArchiveAsync(int id) =>
             await _httpFacade.Post($"projects/{id}/archive");
 
         /// <summary>
-        /// Unarchive project.
+        ///     Unarchive project.
         /// </summary>
         /// <param name="id">Id of the project.</param>
-        public async Task UnArchiveAsync(int id) => 
+        public async Task UnArchiveAsync(int id) =>
             await _httpFacade.Post($"projects/{id}/unarchive");
+
+        public Task CreateBranch(int id, string branchFromRef, string newBranchName) =>
+            _httpFacade.Post($"projects/{id}/repository/branches?branch={newBranchName}&ref={branchFromRef}");
+
+        public Task ProtectBranch(int id, string branchNameOrWildcard, AccessLevel? pushAccessLevel = null,
+            AccessLevel? mergeAccessLevel = null, AccessLevel? unprotectAccessLevel = null)
+        {
+            string query = "name=" + branchNameOrWildcard;
+
+            if (pushAccessLevel != null)
+                query += "&push_access_level=" + (int)pushAccessLevel.Value;
+            if (mergeAccessLevel != null)
+                query += "&merge_access_level=" + (int)mergeAccessLevel.Value;
+            if (unprotectAccessLevel != null)
+                query += "&unprotect_access_level=" + (int)unprotectAccessLevel.Value;
+
+            return _httpFacade.Post($"projects/{id}/protected_branches?{query}");
+        }
+
+        public Task CreateCommit(int id, CreateCommitRequest commit) =>
+            _httpFacade.Post($"projects/{id}/repository/commits", commit);
+    }
+
+    public enum AccessLevel
+    {
+        Guest = 10,
+        Reporter = 20,
+        Developer = 30,
+        Maintainer = 40,
+        Owner = 50
     }
 }

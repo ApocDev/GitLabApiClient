@@ -57,16 +57,16 @@ namespace GitLabApiClient.Models.Projects.Requests
         public int? UserId { get; set; }
 
         /// <summary>
-        /// master by default.
-        /// </summary>
-        [JsonProperty("default_branch")]
-        public string DefaultBranch { get; set; }
-
-        /// <summary>
         /// Namespace for the new project (defaults to the current user's namespace).
         /// </summary>
         [JsonProperty("namespace_id")]
         public int? NamespaceId { get; set; }
+
+        /// <summary>
+        /// master by default.
+        /// </summary>
+        [JsonProperty("default_branch")]
+        public string DefaultBranch { get; set; }
 
         /// <summary>
         /// Short project description.
@@ -104,6 +104,9 @@ namespace GitLabApiClient.Models.Projects.Requests
         [JsonProperty("snippets_enabled")]
         public bool? EnableSnippets { get; set; }
 
+        [JsonProperty("resolve_outdated_diff_discussions")]
+        public bool? ResolveOutdatedDiffDiscussions { get; set; }
+
         /// <summary>
         /// Enable container registry for this project.
         /// </summary>
@@ -131,8 +134,8 @@ namespace GitLabApiClient.Models.Projects.Requests
         /// <summary>
         /// If set, jobs can be viewed by non-project-members.
         /// </summary>
-        [JsonProperty("public_jobs")]
-        public bool? PublicJobs { get; set; }
+        [JsonProperty("public_builds")]
+        public bool? PublicBuilds { get; set; }
 
         /// <summary>
         /// Set whether merge requests can only be merged with successful jobs.
@@ -145,6 +148,9 @@ namespace GitLabApiClient.Models.Projects.Requests
         /// </summary>
         [JsonProperty("only_allow_merge_if_all_discussions_are_resolved")]
         public bool? OnlyAllowMergeIfAllDiscussionsAreResolved { get; set; }
+
+        [JsonProperty("merge_method")]
+        public string MergeMethod { get; set; }
 
         /// <summary>
         /// Enable LFS.
@@ -175,5 +181,20 @@ namespace GitLabApiClient.Models.Projects.Requests
         /// </summary>
         [JsonProperty("ci_config_path")]
         public string CiConfigPath { get; set; }
+
+        [JsonProperty("repository_storage")]
+        public string RepositoryStorage { get; set; }
+
+        [JsonProperty("approvals_before_merge")]
+        public int? ApprovalsBeforeMerge { get; set; }
+
+        [JsonProperty("mirror")]
+        public bool? Mirror { get; set; }
+
+        [JsonProperty("mirror_trigger_builds")]
+        public bool? MirrorTriggersBuilds { get; set; }
+
+        [JsonProperty("initialize_with_readme")]
+        public bool? InitializeWithReadme { get; set; }
     }
 }
